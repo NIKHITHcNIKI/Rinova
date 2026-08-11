@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Rinova: Digital Elevation
 
 Create a world-class, premium, futuristic, AI-inspired business website for Rinova Technologies, an IT solutions company that provides Website Development, UI/UX Design, AI Solutions, Branding, Logo Design, Software Development, and Digital Transformation services.
@@ -476,3 +477,6 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+=======
+# Rinova
+>>>>>>> 5b56fe780c7b46ef3adb3c5ce0b1276641f42a83
