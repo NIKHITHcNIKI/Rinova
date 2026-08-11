@@ -1,0 +1,104 @@
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, Bot, Cpu, Sparkles, Zap } from "lucide-react";
+
+const particles = Array.from({ length: 26 }, (_, i) => ({
+  left: (i * 37) % 100,
+  top: (i * 61) % 100,
+  delay: (i % 9) * 0.6,
+  size: (i % 3) + 2,
+}));
+
+export function Hero() {
+  const reduce = useReducedMotion();
+
+  return (
+    <section id="home" className="relative isolate min-h-[640px] overflow-hidden px-5 pb-24 pt-24 sm:px-8 md:pb-32 md:pt-28">
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <video
+          className="absolute inset-0 size-full object-cover opacity-70"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+          poster="/logo.png"
+        >
+          <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Yes_bro_%F0%9F%91%8D_RINOVA_should_appea-lqbw8vvwlxQZhbetPYTRzKQsiSxj3b.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-background/35" />
+      </div>
+      <div className="hero-bg pointer-events-none absolute inset-0 z-[1] opacity-60" />
+      <div className="grid-lines pointer-events-none absolute inset-0 z-[2]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        {particles.map((p, i) => (
+          <motion.span
+            key={i}
+            className="absolute rounded-full bg-primary/70"
+            style={{ left: `${p.left}%`, top: `${p.top}%`, width: p.size, height: p.size }}
+            animate={reduce ? { opacity: 0.4 } : { y: [0, -30, 0], opacity: [0.15, 0.8, 0.15] }}
+            transition={{ duration: 8 + (i % 5), repeat: Infinity, delay: p.delay }}
+          />
+        ))}
+        <div className="pulse-glow absolute left-1/2 top-10 size-[520px] -translate-x-1/2 rounded-full border border-primary/25" />
+        <div className="pulse-glow absolute left-1/2 top-24 size-[340px] -translate-x-1/2 rounded-full border border-primary/20" />
+      </div>
+
+      <div className="relative z-10 mx-auto w-full max-w-6xl">
+        <motion.div
+          className="flex flex-col items-center text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <span className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+            <Sparkles className="size-3.5" /> AI-Driven IT Solutions
+          </span>
+
+          <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-[1.08] sm:text-5xl md:text-6xl lg:text-7xl">
+            <span className="text-gradient">Transforming Ideas into</span>
+            <br />
+            <span className="text-gradient">Powerful Digital Solutions</span>
+          </h1>
+
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            We design, develop, and deliver high-quality digital products that help businesses grow.
+            From websites and branding to AI-powered applications, we turn your ideas into reality.
+          </p>
+
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#contact"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-glow transition-transform duration-300 hover:scale-[1.04]"
+            >
+              Get Started
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+            </a>
+            <a
+              href="#projects"
+              className="glass glow-ring inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-foreground transition-colors hover:text-primary"
+            >
+              View Our Projects
+            </a>
+          </div>
+        </motion.div>
+
+        <div className="pointer-events-none absolute inset-x-0 top-40 mx-auto hidden max-w-6xl md:block">
+          {[
+            { Icon: Bot, className: "left-4 top-10" },
+            { Icon: Cpu, className: "right-6 top-4" },
+            { Icon: Zap, className: "right-20 top-56" },
+            { Icon: Sparkles, className: "left-16 top-64" },
+          ].map(({ Icon, className }, i) => (
+            <div
+              key={i}
+              className={`float-slow glass absolute grid size-14 place-items-center rounded-2xl text-primary ${className}`}
+              style={{ animationDelay: `${i * 1.3}s` }}
+            >
+              <Icon className="size-6" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
