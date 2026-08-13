@@ -257,6 +257,7 @@ const projects: {
     ],
     Icon: Brain,
     img: projFluent,
+    url: "https://ai-speak-fluent-29.lovable.app",
   },
   {
     name: "LetterGen AI",
