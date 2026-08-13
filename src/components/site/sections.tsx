@@ -34,7 +34,7 @@ import {
   Wand2,
   Wrench,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import projFluent from "@/assets/proj-fluent-ai.jpg";
 import projLetterGen from "@/assets/proj-lettergen.jpg";
 const serviceImages = {
@@ -75,51 +75,6 @@ export function TrustBar() {
   );
 }
 
-function useCountUp(target: number, active: boolean) {
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    if (!active) return;
-    let frame = 0;
-    const total = 60;
-    const id = setInterval(() => {
-      frame += 1;
-      const progress = 1 - Math.pow(1 - frame / total, 3);
-      setValue(Math.round(target * progress));
-      if (frame >= total) clearInterval(id);
-    }, 22);
-    return () => clearInterval(id);
-  }, [target, active]);
-  return value;
-}
-
-function Stat({ value, suffix, label }: { value: number; suffix: string; label: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(false);
-  const count = useCountUp(value, active);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) setActive(true);
-      },
-      { threshold: 0.4 },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} className="glass glow-ring rounded-2xl p-6 text-center">
-      <div className="font-display text-3xl font-extrabold text-gradient sm:text-4xl">
-        {count}
-        {suffix}
-      </div>
-      <p className="mt-2 text-xs uppercase tracking-[0.18em] text-muted-foreground">{label}</p>
-    </div>
-  );
-}
 
 export function About() {
   return (
@@ -161,11 +116,23 @@ export function About() {
           </div>
         </div>
 
-        <Reveal delay={0.15} className="grid grid-cols-2 gap-4">
-          <Stat value={120} suffix="+" label="Projects Completed" />
-          <Stat value={90} suffix="+" label="Happy Clients" />
-          <Stat value={5} suffix="+" label="Years Experience" />
-          <Stat value={24} suffix="/7" label="Support Availability" />
+        <Reveal delay={0.15}>
+          <div className="group relative overflow-hidden rounded-3xl border border-border bg-card shadow-soft">
+            <img
+              src={serviceImages.websiteDesign}
+              alt="Modern website design created by Rinova Technologies"
+              width={768}
+              height={512}
+              className="aspect-[4/3] size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--card),transparent_65%)]" />
+            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">Digital craftsmanship</p>
+              <p className="mt-2 max-w-sm text-lg font-semibold text-card-foreground sm:text-xl">
+                Websites that make your business impossible to overlook.
+              </p>
+            </div>
+          </div>
         </Reveal>
       </div>
     </Section>
